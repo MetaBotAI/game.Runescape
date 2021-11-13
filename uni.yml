@@ -1,0 +1,6 @@
+---
+- hosts: bot
+  gather_facts: yes # distro
+  roles:
+  - client
+  - rsu-client

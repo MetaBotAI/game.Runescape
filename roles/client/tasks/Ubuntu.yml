@@ -1,0 +1,18 @@
+---
+# prime. https://www.runescape.com/download
+- apt_key:
+    url: https://content.runescape.com/downloads/ubuntu/runescape.gpg.key
+    state: present
+  become: true
+
+- apt_repository:
+    repo: deb https://content.runescape.com/downloads/ubuntu trusty non-free
+    state: present
+    filename: runescape
+  become: true
+
+- name: install runescape NXT client
+  apt:
+    name: runescape-launcher
+    update_cache: yes
+  become: true

@@ -1,0 +1,13 @@
+- name: dependencies
+  become: yes
+  apt:
+    pkg:
+    - openjdk-11-jre
+    - wmctrl
+    - p7zip-full
+#oldschool.runescape.wiki/w/Linux_game_installation_guide#Ubuntu_and_Debian
+
+- name: OSRS wiki script
+  script: install-from-OSRS-wiki
+  args:
+    creates: ~/runescape/oldschool/jagexappletviewer.jar

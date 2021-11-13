@@ -1,0 +1,60 @@
+#!/usr/bin/bash
+
+#* using: oldschool.runescape.wiki/w/Linux_game_installation_guide#macOS_Client_Method
+
+# Clean-up
+rm -Rf ~/'runescape/oldschool' '/tmp/oldschool'
+
+# Create Directories
+mkdir -p ~/'runescape/oldschool' '/tmp/oldschool'
+
+#- macOS Client Method
+# Download Image
+wget -O '/tmp/oldschool/OldSchool.dmg' 'https://www.runescape.com/downloads/OldSchool.dmg'
+
+# OldSchool.dmg
+7z e -o'/tmp/oldschool/OldSchool-dmg' -y '/tmp/oldschool/OldSchool.dmg'
+
+# Install JAR
+cp '/tmp/oldschool/OldSchool-dmg/jagexappletviewer.jar' ~/'runescape/oldschool/jagexappletviewer.jar'
+
+# Install Icon
+cp '/tmp/oldschool/OldSchool-dmg/OSRS.icns' ~/'runescape/oldschool/OSRS.icns'
+
+# Clean-up
+rm -Rf '/tmp/oldschool'
+
+#- Desktop Launcher
+# Create Launcher Directory
+mkdir -p ~/'.local/share/applications'
+
+# Edit Launcher File
+echo '''[Desktop Entry]
+Name=Old School RuneScape
+Comment=Relive the challenging levelling system and risk-it-all PvP of the biggest retro styled MMO. Play with millions of other players in this piece of online gaming heritage where the community controls the development so the game is truly what you want it to be!
+Categories=Game;Java;AdventureGame;RolePlaying
+Exec='/usr/bin/java' -Duser.home='/home/CHANGEME/runescape/oldschool' -Djava.class.path='/home/CHANGEME/runescape/oldschool/jagexappletviewer.jar' -Dcom.jagex.config='http://oldschool.runescape.com/jav_config.ws' -Dhttps.protocols='TLSv1.2' -Xms'768M' -Xmx'768M' -Djava.system.class.loader='app.systemclassloader' -Dswing.crossplatformlaf='com.sun.java.swing.plaf.gtk.GTKLookAndFeel' -Dsun.java2d.opengl='false' -Dsun.java2d.uiScale='1' 'jagexappletviewer' 'oldschool'
+Type=Application
+StartupNotify=true
+Path=/home/CHANGEME/runescape/oldschool
+Icon=/home/CHANGEME/runescape/oldschool/OSRS.icns
+StartupWMClass=jagexappletviewer
+Actions=GL;Screen;Cache;
+
+[Desktop Action GL]
+Exec='/usr/bin/java' -Duser.home='/home/CHANGEME/runescape/oldschool' -Djava.class.path='/home/CHANGEME/runescape/oldschool/jagexappletviewer.jar' -Dcom.jagex.config='http://oldschool.runescape.com/jav_config.ws' -Dhttps.protocols='TLSv1.2' -Xms'768M' -Xmx'768M' -Djava.system.class.loader='app.systemclassloader' -Dswing.crossplatformlaf='com.sun.java.swing.plaf.gtk.GTKLookAndFeel' -Dsun.java2d.opengl='true' -Dsun.java2d.uiScale='1' 'jagexappletviewer' 'oldschool'
+Name=Start with OpenGL acceleration
+
+[Desktop Action Screen]
+StartupNotify=false
+Exec='/usr/bin/wmctrl' -r 'Old School RuneScape' -b toggle,fullscreen -F
+Name=Toggle Fullscreen/Windowed
+
+[Desktop Action Cache]
+StartupNotify=false
+Exec='/bin/bash' -c "rm -Rf '/home/CHANGEME/runescape/oldschool/jagexcache' '/home/CHANGEME/runescape/oldschool/jagexappletviewer.preferences' '/home/CHANGEME/runescape/oldschool/jagex_cl_oldschool_LIVE.dat' '/home/CHANGEME/runescape/oldschool/random.dat' '/home/CHANGEME/runescape/oldschool/'*'.log' '/home/CHANGEME/runescape/oldschool/.java' '/tmp/oldschool' && sync && notify-send 'The Old School RuneScape cache has been cleaned.'"
+Name=Cache Cleanup''' \
+> ~/'.local/share/applications/Old School RuneScape.desktop'
+
+# Set Launcher's User
+sed -i 's/'CHANGEME'/'$USER'/g' ~/'.local/share/applications/Old School RuneScape.desktop'

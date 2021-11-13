@@ -1,0 +1,11 @@
+
+- apt_repository:
+    repo: ppa:hikariknight/unix-runescape-client
+  become: yes
+
+- name: Install
+  apt:
+    pkg:
+    - runescape
+    #- unix-runescape-client
+  become: yes

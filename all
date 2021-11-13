@@ -1,0 +1,32 @@
+{
+    "_meta": {
+        "hostvars": {
+            "localhost": {
+                "ansible_become_password": "u",
+                "ansible_connection": "local"
+            },
+            "test_vm": {
+                "ansible_become_password": "u",
+                "ansible_host": "192.168.122.250",
+                "ansible_user": "me"
+            }
+        }
+    },
+    "all": {
+        "children": [
+            "bot",
+            "local",
+            "ungrouped"
+        ]
+    },
+    "bot": {
+        "hosts": [
+            "test_vm"
+        ]
+    },
+    "local": {
+        "hosts": [
+            "localhost"
+        ]
+    }
+}
