@@ -1,5 +1,5 @@
 ---
-- hosts: bot
+- hosts: local
   gather_facts: yes # distro
   roles:
   - client
