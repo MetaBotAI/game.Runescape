@@ -1,0 +1,8 @@
+---
+- name: Install Runescape snap
+  community.general.snap:
+    name:
+      - runescape
+  become: true
+
+# https://snapcraft.io/runescape

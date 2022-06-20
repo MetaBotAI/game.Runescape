@@ -2,7 +2,7 @@
 # - name: client Ubuntu
 #   include_tasks: Ubuntu.yml
 
-- include_tasks: '{{ ansible_distribution }}.yml'
+- include_tasks: '{{ ansible_distribution }}'
 
 - debug:
     msg: '{{ ansible_distribution }}'

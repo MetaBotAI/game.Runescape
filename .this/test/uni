@@ -1,6 +1,5 @@
 ---
-- hosts: local
+- hosts: test
   gather_facts: yes # distro
   roles:
-  - client
-  - rsu-client
+  - client/Snap
